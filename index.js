@@ -4,8 +4,10 @@ const port = 8000;
 const app = express();
 const db = require("./config/mongoose");
 const expressLayouts = require("express-ejs-layouts");
+const cookieParser = require('cookie-parser');
 app.use(expressLayouts);
-
+app.use(express.urlencoded());
+app.use(cookieParser())
 app.use(express.static("./assets"));
 //set view engine and set the view folder
 app.set("view engine","ejs");
