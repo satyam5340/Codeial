@@ -1,9 +1,15 @@
 const User = require("../model/user");
 module.exports.profile = function(req,res){
-    
+    return res.render("user_profile",{
+        title:"codeial || profile"
+    })
 }
 //sign_up
 module.exports.signUp = function(req,res){
+    if(req.isAuthenticated()){
+        return res.redirect("/users/profile");
+    }
+
     return res.render("users_sign_up",{
         title:"Codeial||sign_up"
     })
@@ -40,8 +46,11 @@ module.exports.create = function(req,res){
     })
 }
 module.exports.createSession = function(req,res){
+    console.log("test string")
+
     return res.redirect("/");
 }
 module.exports.destroy = function(req,res){
-    
+    req.logout();
+    return res.redirect("/users/sign-in");
 }

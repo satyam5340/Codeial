@@ -14,7 +14,7 @@ function(email,password,done){
         }
         if(!user || user.password != password){
             console.log("invalid username/passsword");
-            return done(null,false);
+           return done(null,false); 
         }
 
         return done(null,user);
@@ -38,5 +38,19 @@ passport.deserializeUser(function(id,done){
     })
 })
 
+passport.checkAuthentication = function(req,res,next){
+    if (req.isAuthenticated()){
+        return next();
+        
+    }
+    return res.redirect("/users/sign-in");
+}
+passport.setAuthenticatedUser = function(req,res,next){
+    if(req.isAuthenticated()){
+        //req.user contains the user from the cookie and we are just sending it to the locals for the view
+        res.locals.user = req.user
+    }
+    next();
+}
 
 module.exports = passport;

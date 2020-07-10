@@ -1,0 +1,32 @@
+{
+  "name": "codeial_2",
+  "version": "1.0.0",
+  "description": "This is a social media website which i have started to master the complete MEAN stack for webDev learning.",
+  "main": "index.js",
+  "dependencies": {
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.5",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.9.22",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start":"nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/satyam5340/Codeial.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/satyam5340/Codeial/issues"
+  },
+  "homepage": "https://github.com/satyam5340/Codeial#readme"
+}
