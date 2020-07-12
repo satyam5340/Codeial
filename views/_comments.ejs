@@ -1,0 +1,22 @@
+<div class="post-comments">
+    <%if (locals.user){%>
+        <form action="/comments/create" method="POST">
+            <input type="text" name="content" placeholder="Type you comment Here">
+            <input type="hidden" name="post" value="<%= post.id%>">
+            <input type="submit" value="Submit">
+        
+        </form>
+    <%}%>
+</div>
+<%for(var comment of post.comments){%>
+    
+    <%if(((locals.user) && (comment.user.id == locals.user.id)) || ((locals.user) && (locals.user.id == post.user.id))){%>
+    
+        <div>
+            <a href="/comments/destroy/<%= comment.id%>">X</a>
+        </div>
+    <%}%>
+    <div><%= comment.content%></div>
+    <small><%= comment.user.name%></small>
+
+<%}%>

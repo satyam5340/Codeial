@@ -1,8 +1,25 @@
 const User = require("../model/user");
 module.exports.profile = function(req,res){
-    return res.render("user_profile",{
-        title:"codeial || profile"
+    User.findById(req.params.id,function(err,user){
+        return res.render("user_profile",{
+            title:"codeial || profile",
+            profile_user:user
+        })
     })
+    
+}
+module.exports.update = function(req,res){
+    console.log(req.user.id == req.params.id)
+    if(req.user.id == req.params.id){
+
+        User.findByIdAndUpdate(req.params.id,{name:req.body.name,email:req.body.email},function(err,user){
+            return res.redirect("/");
+        });
+        
+    }
+    else{
+        return res.status(401)
+    }
 }
 //sign_up
 module.exports.signUp = function(req,res){
@@ -15,9 +32,17 @@ module.exports.signUp = function(req,res){
     })
 }
 module.exports.signIn = function(req,res){
-    return res.render("users_sign_in",{
-        title:"Codeial||sign_in"
-    })
+    
+    if(req.isAuthenticated()){
+        
+        return res.redirect("/");
+    }
+    else{
+        return res.render("users_sign_in",{
+            title:"Codeial||sign_in"
+        })
+    }
+    
 }
 module.exports.create = function(req,res){
     
@@ -46,7 +71,7 @@ module.exports.create = function(req,res){
     })
 }
 module.exports.createSession = function(req,res){
-    console.log("test string")
+    
 
     return res.redirect("/");
 }

@@ -1,5 +1,5 @@
 const Post = require('../model/posts');
-
+const User = require("../model/user");
 module.exports.home = function(req,res){
     Post.find({})
     .populate("user")
@@ -15,11 +15,17 @@ module.exports.home = function(req,res){
             console.log(err);
             return;
         }
-        return res.render("home",{
-            title:"Codeial||Home",
-            posts:post
+        User.find({},function(err,user){
             
+            return res.render("home",{
+                title:"Codeial||Home",
+                posts:post,
+                users:user
+                
+            })
+
         })
+        
     })
 
     
