@@ -16,19 +16,20 @@ Post.create({
 )
 }
 
-module.exports.destroy = function(req,res){
+module.exports.destroy = async function(req,res){
     
-    Post.findById(req.params.id,function(err,post){
-        console.log(post,"test")
-        if(post){
-            if(post.user == req.user.id){
-                post.remove()
-                Comments.deleteMany({post:req.params.id},function(err){
-                    return res.redirect("/");
-                })
-            }
-        }else{
-            return res.redirect("/")
+    let post = await Post.findById(req.params.id);
+    if(post){
+        if(post.user == req.user.id){
+            post.remove()
+            await Comments.deleteMany({post:req.params.id})
+            return res.redirect("/");
+            
         }
-    })
+    }
+        
+    else{
+        return res.redirect("/")
+    }
+    
 }

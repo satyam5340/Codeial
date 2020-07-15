@@ -43,12 +43,12 @@ module.exports.signIn = function(req,res){
     }
     
 }
-module.exports.create = function(req,res){
+module.exports.create = async function(req,res){
     
     if(req.body.password!=req.body.confirm_password){
         return res.redirect('back');
     }
-    User.findOne({email:req.body.email},function(err,user){
+    let user = User.findOne({email:req.body.email},function(err,user){
         
         if(err){
             console.log(err);
@@ -71,10 +71,11 @@ module.exports.create = function(req,res){
 }
 module.exports.createSession = function(req,res){
     
-
+    req.flash('success','logged in Successfully')
     return res.redirect("/");
 }
 module.exports.destroy = function(req,res){
     req.logout();
+    req.flash('success','logged out Successfully')
     return res.redirect("/users/sign-in");
 }

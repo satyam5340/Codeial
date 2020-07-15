@@ -1,7 +1,10 @@
 #comment{
     display: flex;
-    
+    justify-content: space-between;
     width: 10rem;
     height: 2rem;
     align-items: center;
+    h5{
+       margin: 0; 
+    }
 }
