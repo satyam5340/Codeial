@@ -1,32 +1,36 @@
-<!DOCTYPE html>
-    <link rel="stylesheet" href="home.css">
-    <h1>Codeial/Home</h1>
-   
-    <section id="feed-posts">
-        <h4>Posts</h4>
-        <%if(locals.user){%>
-        <form action="/posts/create" id="new-post-form" method="POST">
-            <textarea name="content"  cols="30" rows="3" placeholder="type here"></textarea>
-            <input type="submit" value="Post">
-        </form>
-        <%}%>
-        <div id="post-list-container">
-            <ul>
+
+    <link rel="stylesheet" href="/css/home.css">
+    <div id="home-page">
+
+        <section id="feed-posts">
+            <h4>Posts</h4>
+            <div id="post-form">
+                <%if(locals.user){%>
+                    <form action="/posts/create" id="new-post-form" method="POST">
+                        <textarea name="content"  cols="30" rows="3" placeholder="type here"></textarea>
+                        <input type="submit" value="Post">
+                    </form>
+                <%}%>
+            </div>
             
-                <%for(post of posts){%>
-                    <%- include('_post') -%>
-                    
-                 <%}%>
-                 
-            </ul>
-        </div>
-    </section>
-    <section id="friends">
-        <h3>Friends</h3>
-        <%for(u of users){%>
-        <p><a href="/users/profile/<%= u._id%>"><%= u.name%></a></p>
+            <div id="post-list-container">
+                <ul>
+                
+                    <%for(post of posts){%>
+                        <%- include('_post') -%>
+                        
+                     <%}%>
+                     
+                </ul>
+            </div>
+        </section>
+        <%if(locals.user){%>
+        <%- include("_friends") -%>
         <%}%>
-    </section>
+
+    </div>
+   
+    
 
 
 

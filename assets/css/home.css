@@ -1,3 +1,8 @@
-body{
-    background-color: palevioletred;
-}
+body {
+  background-color: aqua; }
+
+#home-page {
+  display: flex;
+  justify-content: space-around; }
+  #home-page #friends {
+    border-left: 1px solid; }

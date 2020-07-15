@@ -33,8 +33,7 @@ module.exports.signUp = function(req,res){
 }
 module.exports.signIn = function(req,res){
     
-    if(req.isAuthenticated()){
-        
+    if(req.user){
         return res.redirect("/");
     }
     else{

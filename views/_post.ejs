@@ -1,14 +1,16 @@
-
+<link rel="stylesheet" href="/css/posts.css">
 <p>
-    <ul>
-        <%if(locals.user && locals.user.id == post.user.id){%>
-        <small>
-            <a href="/posts/destroy/<%= post._id%>">X</a>
-        </small>
-        <%}%>
-        <li><%=post.content%></li>
-        <small><%= post.user.name%></small>
+    <ul id="post-list">
         
+        <div><%= post.user.name%></div>  
+        <div id="post-content">
+            <li><%=post.content%></li>
+            <%if(locals.user && locals.user.id == post.user.id){%>
+            <span>
+                <a href="/posts/destroy/<%= post._id%>">X</a>
+            </span>
+            <%}%>
+        </div>   
     </ul>
 </p>
 <%- include('_comments.ejs') -%>
