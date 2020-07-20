@@ -14,21 +14,22 @@
             </div>
             
             <div id="post-list-container">
-                <ul>
                 
+                <ul>
                     <%for(post of posts){%>
                         <%- include('_post') -%>
                         
                      <%}%>
-                     
-                </ul>
+                </ul>    
+                
             </div>
         </section>
-        <%if(locals.user){%>
-        <%- include("_friends") -%>
-        <%}%>
-
+        
+        <%- include("_friends"); -%>
     </div>
+    <script src="/js/home_post_comments.js"></script>
+    <script src="/js/home_post.js"></script>
+    
    
     
 
