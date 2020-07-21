@@ -1,4 +1,5 @@
 const User = require("../model/user");
+const fs = require("fs");
 module.exports.profile = function(req,res){
     User.findById(req.params.id,function(err,user){
         return res.render("user_profile",{
@@ -8,17 +9,50 @@ module.exports.profile = function(req,res){
     })
     
 }
-module.exports.update = function(req,res){
-    console.log(req.user.id == req.params.id)
-    if(req.user.id == req.params.id){
+module.exports.update = async function(req,res){
+    
+    // if(req.user.id == req.params.id){
 
-        User.findByIdAndUpdate(req.params.id,{name:req.body.name,email:req.body.email},function(err,user){
-            return res.redirect("/");
-        });
+    //     User.findByIdAndUpdate(req.params.id,{name:req.body.name,email:req.body.email},function(err,user){
+    //         return res.redirect("/");
+    //     });
         
-    }
-    else{
-        return res.status(401)
+    // }
+    // else{
+    //     return res.status(401)
+    // }
+
+    if(req.user.id == req.params.id){
+        try{
+            let user = await User.findById(req.params.id);
+
+            User.uploadedAvatar(req,res,function(err){
+                if(err){
+                    console.log(req.file);
+                    console.log(err,"error occoured");
+                    return;
+                }
+                
+
+                user.name = req.body.name;
+                user.email = req.body.email;
+
+                if(req.file){
+                    if(user.avatar){
+                        fs.unlinkSync(__dirname,"..",user.avatar);
+                    }
+                    
+
+                    user.avatar = User.avatarPath+"/"+req.file.filename;
+                }
+                user.save();
+                return res.redirect("back");
+            })
+        }catch(err){
+            console.log("Error",err);
+        }
+    }else{
+        return res.redirect('back');
     }
 }
 //sign_up
