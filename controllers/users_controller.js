@@ -39,7 +39,7 @@ module.exports.update = async function(req,res){
 
                 if(req.file){
                     if(user.avatar){
-                        fs.unlinkSync(__dirname,"..",user.avatar);
+                        fs.unlinkSync(__dirname+user.avatar);
                     }
                     
 
@@ -50,6 +50,7 @@ module.exports.update = async function(req,res){
             })
         }catch(err){
             console.log("Error",err);
+            return;
         }
     }else{
         return res.redirect('back');
