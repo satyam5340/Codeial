@@ -1,3 +1,4 @@
+
 {   
     
    let createPost = function(){
@@ -26,6 +27,7 @@
                     deletePost($(" .delete-post", newPost));
                     
                     new postComments(data.data.post._id);
+                    new ToggleLike($(' .post-like',newPost));
                     
                     
                     
@@ -45,7 +47,13 @@
                 <div id="post-content">
                     <div>${post.content}</div>
                
-               
+                   
+                        <a class="post-like" data-like = ${post.like.length} href="/likes/toggle/?id=${post._id}&type=Post">
+                            0 Likes
+                        </a>
+                    
+                        
+                    
                     <a href="/posts/destroy/${post._id}" class="delete-post">X</a>
                
                
@@ -90,6 +98,7 @@
                         }).show();
                     
                     $(`#post-${data.data.post_id}`).remove();
+                    
                 },
                 error:function(error){
                     console.log(error.responseText);

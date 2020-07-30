@@ -1,6 +1,9 @@
 const Comment = require("../model/comments");
 const Post = require("../model/posts");
-
+const commentMailer = require('../mailers/comments_mailers');
+const Like = require("../model/likes");
+const emailWorker = require("../workers/comments_worker");
+const queue = require('../config/kue');
 module.exports.create = async function(req,res){
     
     try{
@@ -16,9 +19,19 @@ module.exports.create = async function(req,res){
            post.comments.push(comment);
                 
             post.save();
+
+            comment = await comment.populate("user","name email").execPopulate();
+            //commentMailer.newComment(comment);
+            let job = queue.create('emails',comment).save(function(err){
+                if(err){
+                    console.log(err,"error");
+                }
+
+                console.log(job.id);
+            })
             if(req.xhr){
                 
-                comment = await comment.populate("user","name").execPopulate();
+                
                 
                 return res.status(200).json({
                     data:{
@@ -51,7 +64,7 @@ module.exports.destroy = async function(req,res){
             
             let postId = comment.post;
             
-
+            Like.deleteMany({_id : {$in : comment.like}})
             comment.remove();
             
             

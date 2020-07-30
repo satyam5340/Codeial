@@ -5,11 +5,20 @@
             <div><%= post.user.name%></div>  
             <div id="post-content">
                 <div class="delete-link"><%=post.content%></div>
+                <%if(locals.user){%>
+                    <a class="post-like" data-like = "<%= post.like.length%>" href="/likes/toggle/?id=<%= post._id%>&type=Post%>">
+                        <%= post.like.length%> Likes
+                    </a>
+                <%}else{%>
+                    <%= post.like.length%> Likes
+                <%}%>
+                
                 <%if(locals.user && locals.user.id == post.user.id){%>
                 
                 <a href="/posts/destroy/<%= post._id %>" class="delete-post">X</a>
                 
                 <%}%>
+                
             </div>   
     
             <div>
@@ -31,6 +40,7 @@
             </div>
             
         </li>
+        
     
 
 

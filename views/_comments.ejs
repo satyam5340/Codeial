@@ -11,8 +11,18 @@
                 <div id="comment-content">
                     <h5><%= comment.user.name%></h5>
                     <%= comment.content%>
+
                     
                 </div>
+                <small>
+                    <%if(locals.user){%>
+                        <a class="post-like" data-like = "<%= comment.like.length%>" href="/likes/toggle/?id=<%= comment._id%>&type=Comment%>">
+                            <%= comment.like.length%> Likes
+                        </a>
+                    <%}else{%>
+                        <%= comment.like.length%> Likes
+                    <%}%>
+                </small>
         
             </div>
     </li>

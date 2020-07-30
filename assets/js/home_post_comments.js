@@ -40,10 +40,11 @@ class postComments{
                         
                         }).show();
                     let newComment = pSelf.newCommentDom(data.data.comment);
-                    console.log(`#post-comment-list-${postId}`,"kiii");
-                    console.log(document.getElementById(`post-comment-list-${postId}`))
+                    
                     $(`#post-comment-list-${postId}`).prepend(newComment);
                     pSelf.deleteComment($(" .delete-comment-button",newComment));
+
+                    new ToggleLike($(" .post-like",newComment));
 
                     
                 }
@@ -65,6 +66,12 @@ class postComments{
                      ${comment.content}
                     
                 </div>
+                <small>
+                <a class="post-like" data-like = ${comment.like.length} href="/likes/toggle/?id=${ comment._id}&type=Comment">
+                            0 Likes
+                        </a>
+                        
+                </small>
         
             </div>
     </li>`)

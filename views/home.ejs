@@ -27,8 +27,18 @@
         
         <%- include("_friends"); -%>
     </div>
+    <script src="/js/toggle_likes.js"></script>
     <script src="/js/home_post_comments.js"></script>
     <script src="/js/home_post.js"></script>
+
+    
+
+    <script>
+        $(".post-like").each(function(){
+            let self = this;
+            let toggleLike = new ToggleLike(self);
+        })
+    </script>
     
    
     
