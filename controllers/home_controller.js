@@ -18,6 +18,7 @@ module.exports.home = async function(req,res){
     }).populate('like')
     
     let user = await User.find({})
+    console.log(post)
     return res.render("home",{
         title:"Codeial||Home",
         posts:post,

@@ -19,6 +19,7 @@ module.exports.toogleLike = async function(req,res){
             onModel:req.query.type
         });
         if(existingLike){
+            console.log(likable.like)
             likable.like.pull(req.query._id);
             likable.save();
 
@@ -32,7 +33,9 @@ module.exports.toogleLike = async function(req,res){
                 onModel:req.query.type
             });
             likable.like.push(newLike._id);
+            
             likable.save();
+            console.log(likable.like)
         }
         return res.json(200,{
             message:"Like saved successfully",

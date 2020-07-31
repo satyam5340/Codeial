@@ -57,6 +57,8 @@ module.exports.destroy = async function(req,res){
     let comment = await Comment.findById(req.params.id) 
     
     let search = comment.post;
+
+    
        
     let post = await Post.findById(search);
         
